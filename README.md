@@ -93,7 +93,7 @@ For **IT Data** folder:
 
 ## Part 2: Linux Configuration
 **Step 3: User and Group Management on Linux** 
-Creating a New User:
+**Creating a New User:**
 
 Logged into Kali Linux.
 
@@ -101,48 +101,66 @@ Created a user named Floyd using the command:
 
 <img width="97" alt="image" src="https://github.com/user-attachments/assets/b9f35cc4-9384-45b6-b0b8-9fd12e6446e3">
 
+<img width="164" alt="image" src="https://github.com/user-attachments/assets/d72b0ee1-6d8e-4daf-b6c8-6a180613ead6">
 
-**4.Creating a User in Active Directory**
-Inside the newly created "IT Admins" OU, I added a new user, setting their first name, last name, and login credentials. After creating the user, I was able to see them listed in the OU, which was now ready for management.
+**Creating a Group:**
 
-<img width="343" alt="image" src="https://github.com/user-attachments/assets/107be2dd-5fc7-4fed-9af2-8b83f6556c91">
+Created a group called Sales:
 
-**5.Creating a Security Group**
-I created a new security group called "Desktop Support" within the same OU. This group would allow me to assign security settings and policies more easily to users and devices that belong to this group.
+**Directory Creation:**
 
-<img width="299" alt="image" src="https://github.com/user-attachments/assets/965e60b6-97a1-45d7-ba7a-76abc950ca77">
+Created a directory for sales information:
+
+**Granting Permissions:**
+
+Assigned ownership of the /sales_info directory to Floyd and the Sales group
 
 
-**6.Adding a Computer Object in AD**
+**Set permissions so that Floyd has write and execute permissions, while the Sales group has read and execute permissions:**
 I added a computer object named "Laptop01" within the domain using PowerShell. To verify, I generated a list of computers in AD and exported the results to a file on the C: drive. I confirmed the presence of "Laptop01" in the exported file.
 
-<img width="328" alt="image" src="https://github.com/user-attachments/assets/f57654eb-7b8c-4b00-96da-1617fa491aa3">
-
-<img width="401" alt="image" src="https://github.com/user-attachments/assets/d2f6d133-b4b0-4188-97f7-eeb50492b132">
-
-<img width="404" alt="image" src="https://github.com/user-attachments/assets/3d4aa398-bee7-4fba-92e1-22c543c9b2be">
+<img width="173" alt="image" src="https://github.com/user-attachments/assets/628a68bc-b823-4cda-81ba-b8aa3489f813">
 
 
-**7.Configuring Group Policy Objects (GPOs)** I then moved to the Group Policy Management Console (GPMC). Within the Default Domain Policy, I configured several password policies:
+**Step 4: Password Auditing with John the Ripper**
 
-Minimum password length: 14 characters
+**Creating a New User:**
 
-Maximum password age: 90 days
+Added another user Bobby and set his password:
 
-Minimum password age: 1 day
-
-Password history: 20 passwords
-
-Reversible encryption: Disabled
-This ensured that the security standards for user accounts in the domain met strict requirements.
-
-<img width="637" alt="image" src="https://github.com/user-attachments/assets/b59e6627-34ab-4872-a4da-83cefe642bd7">
-
-**8.Generating a GPO Report in PowerShell**
-After setting the GPOs, I used PowerShell to generate a report of the changes, saving the file as HTML on the C: drive. I confirmed the new password policies were successfully applied and viewed the report to ensure everything was in order.
-
-<img width="220" alt="image" src="https://github.com/user-attachments/assets/1ea55477-9652-47bd-b109-4fc3790af938">
+<img width="341" alt="image" src="https://github.com/user-attachments/assets/22873b78-0f35-49b1-bdb8-1b29bb4a56e6">
 
 
+**Using John the Ripper:**
 
-<img width="743" alt="image" src="https://github.com/user-attachments/assets/d2eefa20-0f38-42ad-9aae-71ec118dd7ec">
+**Utilized John the Ripper to audit the password strength:**
+
+**Unzipped the RockYou Wordlist:**
+
+I used the rockyou.txt wordlist that comes with Kali Linux, unzipping it for use with John the Ripper.
+
+
+<img width="175" alt="image" src="https://github.com/user-attachments/assets/38fad3a8-e5b3-435f-b6e2-8963c5093bac">
+
+**Edited the Wordlist:**
+
+Opened the wordlist using vim and added a specific password to the top of the file for testing.
+
+<img width="153" alt="image" src="https://github.com/user-attachments/assets/054cb220-c01d-4f78-a895-addd75f99518">
+
+Run the following command to create a text file of usernames and password hashes:
+
+<img width="347" alt="image" src="https://github.com/user-attachments/assets/7ae685fb-9fb4-4e33-bee3-d5ade96cddbd">
+
+Cracked Passwords with John the Ripper:
+
+Ran John the Ripper on the combined file using the modified wordlist.
+
+<img width="426" alt="image" src="https://github.com/user-attachments/assets/ddcc1661-d31b-4e1b-95e8-c03bd5c39d92">
+
+Saved the Results:
+Redirected the cracked passwords into a file for future reporting.
+
+<img width="337" alt="image" src="https://github.com/user-attachments/assets/bdcf8938-86a9-4420-8f4d-54f52fb68685">
+
+
